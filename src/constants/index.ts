@@ -112,7 +112,7 @@ const technologies: TTechnology[] = [
     name: "git",
     icon: git,
   },
- 
+
 ];
 
 const experiences: TExperience[] = [
@@ -150,7 +150,7 @@ const experiences: TExperience[] = [
       "Created e-commerce application using Vue.js, Nuxt.js, and Pinia for state management. Features a minimal UI, unique design, smooth experience, and fast optimized build, making it highly modularized and mobile-ready. The project includes components for product details, header, home, products, cart, contact form, footer, and newsletter. Development environment integrates tools like Nuxt DevTools, Vite, Prettier, Eslint, and AutoPrefixer.",
       "Implemented responsive design and ensured cross-browser compatibility.",
     ],
-    link: "https://vuecommerce.netlify.app", // Corrected typo here
+    link: "https://vuecommercee.netlify.app/", 
   },
 ];
 
