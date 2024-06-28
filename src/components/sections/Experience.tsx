@@ -60,12 +60,14 @@ const ExperienceCard: React.FC<ExperienceCardProps> = ({
           </li>
         ))}
       </ul>
-      <a
-        href={link}
-        className="pl-1 text-[12px] tracking-wider text-purple-400"
-      >
-        {link}
-      </a>
+      {link && (
+        <a
+          href={link}
+          className="pl-1 text-[12px] tracking-wider text-purple-400"
+        >
+          {link}
+        </a>
+      )}
     </VerticalTimelineElement>
   );
 };
@@ -78,7 +80,7 @@ const Experience = () => {
       <div className="mt-20 flex flex-col">
         <VerticalTimeline>
           {experiences.map((experience, index) => (
-            <ExperienceCard key={index} {...experience} link={experience.link} />
+            <ExperienceCard key={index} {...experience} link={experience.link || ""} />
           ))}
         </VerticalTimeline>
       </div>

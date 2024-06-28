@@ -1,10 +1,9 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import styled from "styled-components";
 import { Environment } from "@react-three/drei";
-import CanvasLoader from "../layout/Loader";
-import { useFrame } from "@react-three/fiber"; // useFrame'ı import ediyoruz
+import { useFrame } from "@react-three/fiber";
 
 const StyledCanvasContainer = styled.div`
   border-radius: 20px;
@@ -21,10 +20,10 @@ const StyledCanvasContainer = styled.div`
 `;
 
 const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
-  const computer = useGLTF("./desktop_pc/scene.gltf");
+  const { scene: computer } = useGLTF("./desktop_pc/scene.gltf");
 
   // Rotation state
-  const [rotation, setRotation] = useState([0, 0, 0]);
+  const [rotation, setRotation] = useState<[number, number, number]>([0, 0, 0]);
 
   // Rotate the mesh
   useFrame(() => {
@@ -49,7 +48,6 @@ const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
         shadow-camera-bottom={-10}
       />
       <hemisphereLight
-        skyColor={"#ffffff"}
         groundColor={"#808080"}
         intensity={0.5}
         position={[0, 50, 0]}
@@ -60,7 +58,7 @@ const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
 
       {/* GLTF Model */}
       <primitive
-        object={computer.scene}
+        object={computer}
         scale={isMobile ? 0.7 : 1.2}
         position={isMobile ? [0, -1.5, -2.2] : [0, -4.25, -1.5]}
         rotation={[-0.01, -0.2, -0.1]}
@@ -104,15 +102,13 @@ const ComputersCanvas = () => {
         camera={{ position: [20, 3, 5], fov: 25 }}
         gl={{ preserveDrawingBuffer: true, antialias: true }}
       >
-        <Suspense fallback={<CanvasLoader />}>
-          <OrbitControls
-            enableZoom={false}
-            maxPolarAngle={Math.PI / 2}
-            minPolarAngle={Math.PI / 2}
-          />
-          <Computers isMobile={isMobile} />
-        </Suspense>
         <Preload all />
+        <OrbitControls
+          enableZoom={false}
+          maxPolarAngle={Math.PI / 2}
+          minPolarAngle={Math.PI / 2}
+        />
+        <Computers isMobile={isMobile} />
       </Canvas>
     </StyledCanvasContainer>
   );

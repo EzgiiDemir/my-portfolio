@@ -1,4 +1,4 @@
-import React from "react";
+
 import { motion } from "framer-motion";
 import { EarthCanvas } from "../canvas";
 import { SectionWrapper } from "../../hoc";

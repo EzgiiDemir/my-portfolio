@@ -9,6 +9,7 @@ export type TExperience = {
   iconBg: string;
   date: string;
   points: string[];
+  link: string;
 } & Required<Omit<TCommonProps, "name">>;
 
 export type TTestimonial = {
@@ -16,6 +17,8 @@ export type TTestimonial = {
   designation: string;
   company: string;
   image: string;
+  link: string; 
+  icon: string;
 } & Required<Pick<TCommonProps, "name">>;
 
 export type TProject = {
