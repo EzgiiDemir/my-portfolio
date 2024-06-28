@@ -28,7 +28,6 @@ import spotifyIcon from "../assets/png-transparent-spotify-logo-spotify.png";
 import snkrIcon from "../assets/images.jpeg";
 import vueIcon from "../assets/Vue.png";
 import angularIcon from "../assets/images (1).png";
-import metaIcon from "../assets/pngimg.com - meta_PNG12.png";
 import frontendImage from "../assets/freecodecamp.org_certification_ezgiidemir__front-end-development-libraries - Google Chrome 27_06_2024 00_11_42.png";
 import webImage from "../assets/UC-4223775d-fb35-423e-9159-8f692be8384d.jpg";
 import wordpressImage from "../assets/CERTIFICATE_LANDING_PAGE~QTWXWC3UACKB.jpeg";
@@ -113,10 +112,7 @@ const technologies: TTechnology[] = [
     name: "git",
     icon: git,
   },
-  {
-    name: "meta",
-    icon: metaIcon,
-  },
+ 
 ];
 
 const experiences: TExperience[] = [
