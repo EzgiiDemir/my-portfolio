@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -14,73 +14,77 @@ interface ExperienceCardProps extends TExperience {
   link: string;
 }
 
-const ExperienceCard: React.FC<ExperienceCardProps> = ({
-  date,
-  title,
-  companyName,
-  points,
-  icon,
-  iconBg,
-  link,
-}) => {
-  return (
-    <VerticalTimelineElement
-      className="vertical-timeline-element"
-      contentStyle={{
-        background: "#1d1836",
-        color: "#fff",
-      }}
-      contentArrowStyle={{ borderRight: "7px solid  #232631" }}
-      date={date}
-      iconStyle={{ background: iconBg }}
-      icon={
-        <div className="flex h-full w-full items-center justify-center">
-          <img
-            src={icon}
-            alt={companyName}
-            className="h-[60%] w-[60%] object-contain"
-          />
-        </div>
-      }
-    >
-      <div>
-        <h3 className="text-[24px] font-bold text-white">{title}</h3>
-        <p className="text-secondary text-[16px] font-semibold" style={{ margin: 0 }}>
-          {companyName}
-        </p>
-      </div>
-
-      <ul className="ml-5 mt-5 list-disc space-y-4">
-        {points.map((point, index) => (
-          <li
-            key={`experience-point-${index}`}
-            className="text-white-100 pl-1 text-[14px] tracking-wider"
+const ExperienceCard: React.FC<ExperienceCardProps> = React.memo(
+  ({ date, title, companyName, points, icon, iconBg, link }) => {
+    return (
+      <VerticalTimelineElement
+        className="vertical-timeline-element"
+        contentStyle={{
+          background: "#1d1836",
+          color: "#fff",
+        }}
+        contentArrowStyle={{ borderRight: "7px solid  #232631" }}
+        date={date}
+        iconStyle={{ background: iconBg }}
+        icon={
+          <div className="flex h-full w-full items-center justify-center">
+            <img
+              src={icon}
+              alt={companyName}
+              className="h-[60%] w-[60%] object-contain"
+            />
+          </div>
+        }
+      >
+        <div>
+          <h3 className="text-[24px] font-bold text-white">{title}</h3>
+          <p
+            className="text-secondary text-[16px] font-semibold"
+            style={{ margin: 0 }}
           >
-            {point}
-          </li>
-        ))}
-      </ul>
-      {link && (
-        <a
-          href={link}
-          className="pl-1 text-[12px] tracking-wider text-purple-400"
-        >
-          {link}
-        </a>
-      )}
-    </VerticalTimelineElement>
-  );
-};
+            {companyName}
+          </p>
+        </div>
+
+        <ul className="ml-5 mt-5 list-disc space-y-4">
+          {points.map((point, index) => (
+            <li
+              key={`experience-point-${index}`}
+              className="text-white-100 pl-1 text-[14px] tracking-wider"
+            >
+              {point}
+            </li>
+          ))}
+        </ul>
+        {link && (
+          <a
+            href={link}
+            className="pl-1 text-[12px] tracking-wider text-purple-400"
+          >
+            {link}
+          </a>
+        )}
+      </VerticalTimelineElement>
+    );
+  }
+);
 
 const Experience = () => {
+  const memoizedExperiences = useMemo(() => experiences, []);
+  const experienceConfig = useMemo(() => config.sections.experience, []);
+
   return (
     <>
-      <Header useMotion={true} {...config.sections.experience} />
+      <Header useMotion={true} {...experienceConfig} />
 
       <div className="mt-20 flex flex-col">
         <VerticalTimeline>
-          {experiences.map((experience, index) => (
-            <ExperienceCard key={index} {...experience} link={experience.link || ""} />
+          {memoizedExperiences.map((experience, index) => (
+            <ExperienceCard
+              key={index}
+              {...experience}
+              link={experience.link || ""}
+            />
           ))}
         </VerticalTimeline>
       </div>

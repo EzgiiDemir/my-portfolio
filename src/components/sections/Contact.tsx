@@ -1,4 +1,4 @@
-
+import React, { useCallback } from "react";
 import { motion } from "framer-motion";
 import { EarthCanvas } from "../canvas";
 import { SectionWrapper } from "../../hoc";
@@ -7,23 +7,29 @@ import { config } from "../../constants/config";
 import { Header } from "../atoms/Header";
 
 const Contact = () => {
+  const handleDownload = useCallback(() => {
+    const link = document.createElement("a");
+    link.href = "src/assets/EzgiDemir.zip";
+    link.download = "EzgiDemir.zip";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, []);
+
   return (
-    <div
-      className={`flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row`}
-    >
+    <div className="flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row">
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
         className="bg-transparent-100 flex-[0.75] rounded-2xl p-8"
       >
         <Header useMotion={false} {...config.contact} />
-        <a href="src/assets/EzgiDemir.zip" download>
-          <button
-            type="button"
-            className="bg-tertiary shadow-primary w-fit rounded-xl px-8 py-3 font-bold text-white shadow-md outline-none"
-          >
-            Download
-          </button>
-        </a>
+        <button
+          type="button"
+          onClick={handleDownload}
+          className="bg-tertiary shadow-primary w-fit rounded-xl px-8 py-3 font-bold text-white shadow-md outline-none"
+        >
+          Download
+        </button>
       </motion.div>
 
       <motion.div
@@ -36,4 +42,4 @@ const Contact = () => {
   );
 };
 
-export default SectionWrapper(Contact, "contact");
+export default React.memo(SectionWrapper(Contact, "contact"));

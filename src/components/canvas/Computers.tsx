@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import styled from "styled-components";
-import { Environment } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 
 const StyledCanvasContainer = styled.div`
@@ -19,7 +18,7 @@ const StyledCanvasContainer = styled.div`
   }
 `;
 
-const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
+const Computers: React.FC<{ isMobile: boolean }> = React.memo(({ isMobile }) => {
   const { scene: computer } = useGLTF("./desktop_pc/scene.gltf");
 
   // Rotation state
@@ -28,7 +27,7 @@ const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
   // Rotate the mesh
   useFrame(() => {
     // Rotate around the Y axis
-    setRotation([0, rotation[1] + 0.01, 0]);
+    setRotation((prevRotation) => [0, prevRotation[1] + 0.01, 0]);
   });
 
   return (
@@ -39,8 +38,8 @@ const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
         position={[5, 10, 5]}
         intensity={1}
         castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
+        shadow-mapSize-width={512}
+        shadow-mapSize-height={512}
         shadow-camera-far={50}
         shadow-camera-left={-10}
         shadow-camera-right={10}
@@ -53,9 +52,6 @@ const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
         position={[0, 50, 0]}
       />
 
-      {/* Environment */}
-      <Environment preset="night" backgroundBlurriness={0.6} />
-
       {/* GLTF Model */}
       <primitive
         object={computer}
@@ -67,40 +63,32 @@ const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
       />
     </mesh>
   );
-};
+});
 
 const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
 
+  const handleMediaQueryChange = useCallback((event: MediaQueryListEvent) => {
+    setIsMobile(event.matches);
+  }, []);
+
   useEffect(() => {
-    // Add a listener for changes to the screen size
     const mediaQuery = window.matchMedia("(max-width: 500px)");
-
-    // Set the initial value of the `isMobile` state variable
     setIsMobile(mediaQuery.matches);
-
-    // Define a callback function to handle changes to the media query
-    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
-      setIsMobile(event.matches);
-    };
-
-    // Add the callback function as a listener for changes to the media query
     mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-    // Remove the listener when the component is unmounted
     return () => {
       mediaQuery.removeEventListener("change", handleMediaQueryChange);
     };
-  }, []);
+  }, [handleMediaQueryChange]);
 
   return (
     <StyledCanvasContainer>
       <Canvas
-        frameloop="always"
+        frameloop="demand"
         shadows
-        dpr={[1, 2]}
+        dpr={Math.min(window.devicePixelRatio, 2)}
         camera={{ position: [20, 3, 5], fov: 25 }}
-        gl={{ preserveDrawingBuffer: true, antialias: true }}
+        gl={{ antialias: true, powerPreference: "high-performance" }}
       >
         <Preload all />
         <OrbitControls

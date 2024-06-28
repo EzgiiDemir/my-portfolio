@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense, useMemo } from "react";
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 import { services } from "../../constants";
@@ -6,7 +6,7 @@ import { SectionWrapper } from "../../hoc";
 import { fadeIn } from "../../utils/motion";
 import { config } from "../../constants/config";
 import { Header } from "../atoms/Header";
-import { ComputersCanvas } from "../canvas";
+const ComputersCanvas = React.lazy(() => import("../canvas/Computers.tsx"));
 
 interface IServiceCard {
   index: number;
@@ -14,7 +14,7 @@ interface IServiceCard {
   icon: string;
 }
 
-const ServiceCard: React.FC<IServiceCard> = ({ index, title, icon }) => (
+const ServiceCard: React.FC<IServiceCard> = React.memo(({ index, title, icon }) => (
   <Tilt glareEnable tiltEnable tiltMaxAngleX={30} tiltMaxAngleY={30} glareColor="#aaa6c3">
     <div className="xs:w-[250px] w-full">
       <motion.div
@@ -28,9 +28,11 @@ const ServiceCard: React.FC<IServiceCard> = ({ index, title, icon }) => (
       </motion.div>
     </div>
   </Tilt>
-);
+));
 
 const About = () => {
+  const servicesMemo = useMemo(() => services, []);
+
   return (
     <>
       <div className="flex flex-wrap justify-between gap-4">
@@ -48,14 +50,16 @@ const About = () => {
         {/* Right Section */}
         <div className="w-full md:w-1/2 lg:w-1/3 flex justify-center md:justify-end">
           <div className="w-full h-full max-w-[500px]">
-            <ComputersCanvas  />
+            <Suspense fallback={<div>Loading...</div>}>
+              <ComputersCanvas />
+            </Suspense>
           </div>
         </div>
       </div>
 
       {/* Service Cards */}
       <div className="mt-20 flex flex-wrap gap-10 justify-center items-center max-sm:justify-center">
-        {services.map((service, index) => (
+        {servicesMemo.map((service, index) => (
           <ServiceCard key={service.title} index={index} {...service} />
         ))}
       </div>

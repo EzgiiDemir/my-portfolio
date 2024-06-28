@@ -2,7 +2,7 @@ import React from "react";
 import Tilt from "react-parallax-tilt";
 import { motion } from "framer-motion";
 
-import {  link } from "../../assets";
+import {  link } from "../../assets";// Assuming link is a path to your link icon
 import { SectionWrapper } from "../../hoc";
 import { projects } from "../../constants";
 import { fadeIn } from "../../utils/motion";
@@ -10,8 +10,7 @@ import { config } from "../../constants/config";
 import { Header } from "../atoms/Header";
 import { TProject } from "../../types";
 
-const ProjectCard: React.FC<{ index: number } & TProject> = ({
-  index,
+const ProjectCard: React.FC<TProject> = ({
   name,
   description,
   tags,
@@ -19,15 +18,14 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
   sourceCodeLink,
 }) => {
   return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.1, 0.2)}>
+    <motion.div variants={fadeIn("up", "spring", 0.1, 0.2)}>
       <Tilt
         glareEnable
-        glareMaxOpacity={0.45} // Adjust glare opacity
+        glareMaxOpacity={0.45}
         glareColor="#aaa6c3"
         tiltEnable
-        tiltMaxAngleX={20} // Adjust tilt angles
+        tiltMaxAngleX={20}
         tiltMaxAngleY={20}
-        // glareBorderRadius={10} // Adjust glare border radius
       >
         <div className="bg-tertiary rounded-xl p-2 sm:p-4">
           <div className="relative rounded-xl h-[200px] sm:h-[230px]">
@@ -44,7 +42,7 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
                 <img
                   src={link}
                   alt="link"
-                  className="h-1/2 w-1/2 object-contain"
+                  className="h-5 w-5 object-contain"
                 />
               </div>
             </div>
@@ -82,7 +80,7 @@ const Works = () => {
 
       <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-7">
         {projects.map((project, index) => (
-          <ProjectCard key={`project-${index}`} index={index} {...project} />
+          <ProjectCard key={`project-${index}`} {...project} />
         ))}
       </div>
     </>
