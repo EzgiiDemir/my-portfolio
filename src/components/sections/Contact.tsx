@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { EarthCanvas } from "../canvas";
 import { SectionWrapper } from "../../hoc";
@@ -7,19 +6,19 @@ import { config } from "../../constants/config";
 import { Header } from "../atoms/Header";
 
 const Contact = () => {
+  const downloadLink = "src/assets/EzgiDemir.pdf"; // Buraya dosyanın gerçek URL'sini ekleyin
+
   return (
-    <div
-      className={`flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row`}
-    >
+    <div className="flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row">
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
         className="bg-transparent-100 flex-[0.75] rounded-2xl p-8"
       >
         <Header useMotion={false} {...config.contact} />
-        <a href="file:///C:/Users/User/Downloads/EzgiDemir.pdf" download>
+        <a href={downloadLink} target="_blank" rel="noopener noreferrer">
           <button
             type="button"
-            className="bg-tertiary shadow-primary w-fit rounded-xl px-8 py-3 font-bold text-white shadow-md outline-none"
+            className="bg-tertiary shadow-primary rounded-xl px-8 py-3 font-bold text-white shadow-md outline-none"
           >
             Download
           </button>
