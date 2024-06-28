@@ -16,7 +16,7 @@ const Contact = () => {
         className="bg-transparent-100 flex-[0.75] rounded-2xl p-8"
       >
         <Header useMotion={false} {...config.contact} />
-        <a href="src/assets/EzgiDemir.zip" download>
+        <a href="file:///C:/Users/User/Downloads/EzgiDemir.pdf" download>
           <button
             type="button"
             className="bg-tertiary shadow-primary w-fit rounded-xl px-8 py-3 font-bold text-white shadow-md outline-none"
