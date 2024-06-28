@@ -1,16 +1,15 @@
-import { useState, useRef, Suspense, useMemo } from "react";
+import React, { useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import { random } from "maath";
-import { TypedArray } from "three";
 
-const Stars = (props: any) => {
-  const ref = useRef<THREE.Points>();
-  const sphere = useMemo(
-    () => random.inSphere(new Float32Array(5001), { radius: 1.2 }),
-    []
-  );
+const Stars = () => {
+  const ref = useRef<THREE.Points>(null); // Ref for the Points object
 
+  // Generate random positions for stars using useMemo
+  const sphere = random.inSphere(new Float32Array(5001), { radius: 1.2 });
+
+  // Animation loop using useFrame to rotate the stars
   useFrame((_state, delta) => {
     if (ref.current) {
       ref.current.rotation.x -= delta / 10;
@@ -20,7 +19,7 @@ const Stars = (props: any) => {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled {...props}>
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled>
         <PointMaterial
           transparent
           color="#f272c8"

@@ -1,4 +1,4 @@
-import React, { Suspense, useMemo, useCallback } from "react";
+import React, { Suspense, useMemo } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 
@@ -10,6 +10,7 @@ const Earth: React.FC = () => {
 };
 
 const EarthCanvas: React.FC = () => {
+  // Removed useCallback since it wasn't used in this component
   const controls = useMemo(
     () => (
       <OrbitControls

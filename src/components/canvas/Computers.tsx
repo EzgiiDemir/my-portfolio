@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
 import styled from "styled-components";
@@ -68,18 +68,17 @@ const Computers: React.FC<{ isMobile: boolean }> = React.memo(({ isMobile }) => 
 const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
 
-  const handleMediaQueryChange = useCallback((event: MediaQueryListEvent) => {
-    setIsMobile(event.matches);
-  }, []);
-
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 500px)");
     setIsMobile(mediaQuery.matches);
+    const handleMediaQueryChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
     mediaQuery.addEventListener("change", handleMediaQueryChange);
     return () => {
       mediaQuery.removeEventListener("change", handleMediaQueryChange);
     };
-  }, [handleMediaQueryChange]);
+  }, []);
 
   return (
     <StyledCanvasContainer>
