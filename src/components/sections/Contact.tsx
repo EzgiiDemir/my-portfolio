@@ -6,7 +6,7 @@ import { config } from "../../constants/config";
 import { Header } from "../atoms/Header";
 
 const Contact = () => {
-  const downloadLink = "src/assets/EzgiDemir.pdf"; // Buraya dosyanın gerçek URL'sini ekleyin
+  const downloadLink = "https://www.canva.com/design/DAGJcWyo_Kw/_KuNstFdbXthO6DCoZcktA/view?utm_content=DAGJcWyo_Kw&utm_campaign=designshare&utm_medium=link&utm_source=editor"; // Buraya dosyanın gerçek URL'sini ekleyin
 
   return (
     <div className="flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row">
