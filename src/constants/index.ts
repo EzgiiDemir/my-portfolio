@@ -26,7 +26,7 @@ import {
 
 import spotifyIcon from "../assets/png-transparent-spotify-logo-spotify.png";
 import snkrIcon from "../assets/images.jpeg";
-import vueIcon from "../assets/vue.png";
+import vueIcon from "../assets/Vue.png";
 import angularIcon from "../assets/images (1).png";
 import metaIcon from "../assets/pngimg.com - meta_PNG12.png";
 import frontendImage from "../assets/freecodecamp.org_certification_ezgiidemir__front-end-development-libraries - Google Chrome 27_06_2024 00_11_42.png";
