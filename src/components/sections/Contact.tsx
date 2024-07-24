@@ -6,7 +6,7 @@ import { config } from "../../constants/config";
 import { Header } from "../atoms/Header";
 
 const Contact = () => {
-  const downloadLink = "public/ezgisresume.zip"; // Buraya dosyanın gerçek URL'sini ekleyin
+  const downloadLink = "/ezgisresume.zip"; // Dosyanın gerçek URL'sini buraya ekleyin
 
   return (
     <div className="flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row">
