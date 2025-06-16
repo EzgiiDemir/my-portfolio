@@ -59,9 +59,14 @@ const services: TService[] = [
   },
   {
     title: "UX & UI Development",
+    icon: web,
+  },
+  {
+    title: "Mobile Development",
     icon: mobile,
   },
 ];
+
 
 const technologies: TTechnology[] = [
   {

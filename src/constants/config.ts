@@ -47,7 +47,7 @@ export const config: TConfig = {
   },
   hero: {
     name: "Ezgi",
-    p: ["Front-End Developer"],
+    p: ["Full Stack Developer"],
 
   },
   contact: {
