@@ -6,7 +6,7 @@ import { config } from "../../constants/config";
 import { Header } from "../atoms/Header";
 
 const Contact = () => {
-  const downloadLink = "/ezgi_resume.pdf";
+  const downloadLink = "/EzgiDemir.pdf";
 
   return (
     <div className="flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row">
